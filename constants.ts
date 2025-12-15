@@ -6,136 +6,343 @@ export const CATEGORIES: Category[] = [
     name: 'Herbal Teas', 
     icon: 'Leaf', 
     color: 'bg-green-100 text-green-700',
-    image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&q=80' 
+    image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=800&q=80' 
   },
   { 
     id: 'supplements', 
-    name: 'Supplements', 
+    name: 'Supplements & Vitamins', 
     icon: 'Pill', 
     color: 'bg-blue-100 text-blue-700',
-    image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80'
+    image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=800&q=80'
   },
   { 
     id: 'cosmetics', 
-    name: 'Natural Beauty', 
+    name: 'Natural Cosmetics', 
     icon: 'Sparkles', 
     color: 'bg-pink-100 text-pink-700',
-    image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=400&q=80'
+    image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=800&q=80'
   },
   { 
     id: 'food', 
-    name: 'Healthy Food', 
+    name: 'Super Foods', 
     icon: 'Apple', 
     color: 'bg-orange-100 text-orange-700',
-    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80'
-  },
-  { 
-    id: 'essential_oils', 
-    name: 'Aromatherapy', 
-    icon: 'Droplets', 
-    color: 'bg-purple-100 text-purple-700',
-    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=400&q=80'
-  },
+    image: 'https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&w=800&q=80'
+  }
 ];
 
 export const PRODUCTS: Product[] = [
+  // --- TEAS (Prices between $6-8) ---
   {
-    id: '1',
-    name: 'Organic Chamomile Tea',
-    description: 'Premium whole flower chamomile tea for relaxation and better sleep.',
-    price: 8.50,
+    id: 'tea-1',
+    name: 'Organic Chamomile Whole Flower',
+    description: 'Premium whole flower chamomile for deep relaxation and digestive calm.',
+    price: 7.50,
     category: 'tea',
-    rating: 4.8,
+    rating: 4.9,
     reviews: 124,
-    image: 'https://picsum.photos/seed/tea1/400/400',
+    image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80',
     isOrganic: true,
-    benefits: ['Promotes sleep', 'Reduces inflammation', 'Calms digestion'],
+    benefits: ['Sleep aid', 'Digestive health', 'Calming'],
     ingredients: '100% Organic Matricaria chamomilla flowers'
   },
   {
-    id: '2',
-    name: 'Ashwagandha Root Extract',
-    description: 'High potency adaptogen supplement for stress relief and energy.',
-    price: 24.99,
-    category: 'supplements',
-    rating: 4.6,
-    reviews: 89,
-    image: 'https://picsum.photos/seed/supp1/400/400',
-    isOrganic: true,
-    benefits: ['Stress reduction', 'Boosts energy', 'Improves focus'],
-    ingredients: 'Organic Ashwagandha Root Extract (KSM-66), Black Pepper Extract'
-  },
-  {
-    id: '3',
-    name: 'Lavender Facial Oil',
-    description: 'Nourishing facial oil with essential lavender oil for glowing skin.',
-    price: 18.00,
-    category: 'cosmetics',
-    rating: 4.9,
-    reviews: 56,
-    image: 'https://picsum.photos/seed/cos1/400/400',
-    isOrganic: true,
-    benefits: ['Hydrating', 'Soothing', 'Anti-aging']
-  },
-  {
-    id: '4',
-    name: 'Manuka Honey UMF 15+',
-    description: 'Pure New Zealand Manuka honey with high antibacterial properties.',
-    price: 45.00,
-    category: 'food',
-    rating: 5.0,
-    reviews: 210,
-    image: 'https://picsum.photos/seed/food1/400/400',
-    isOrganic: false,
-    benefits: ['Immune support', 'Digestive health', 'Wound healing']
-  },
-  {
-    id: '5',
-    name: 'Peppermint Essential Oil',
-    description: '100% pure therapeutic grade peppermint oil.',
-    price: 12.50,
-    category: 'essential_oils',
-    rating: 4.7,
-    reviews: 78,
-    image: 'https://picsum.photos/seed/oil1/400/400',
-    isOrganic: true,
-    benefits: ['Relieves headaches', 'Boosts energy', 'Respiratory support']
-  },
-  {
-    id: '6',
-    name: 'Green Superfood Blend',
-    description: 'Daily greens powder with spirulina, chlorella, and wheatgrass.',
-    price: 32.99,
-    category: 'food',
-    rating: 4.5,
-    reviews: 145,
-    image: 'https://picsum.photos/seed/food2/400/400',
-    isOrganic: true,
-    benefits: ['Detoxifying', 'Nutrient dense', 'Alkalyzing']
-  },
-  {
-    id: '7',
-    name: 'Turmeric Curcumin',
-    description: 'Enhanced absorption turmeric complex for joint health.',
-    price: 21.50,
-    category: 'supplements',
-    rating: 4.8,
-    reviews: 300,
-    image: 'https://picsum.photos/seed/supp2/400/400',
-    isOrganic: true,
-    benefits: ['Anti-inflammatory', 'Joint support', 'Antioxidant']
-  },
-  {
-    id: '8',
-    name: 'Sleepy Time Tea Blend',
-    description: 'A calming blend of valerian, passionflower, and lemon balm.',
-    price: 9.50,
+    id: 'tea-2',
+    name: 'Sleepy Time Valerian Blend',
+    description: 'A potent nighttime blend featuring Valerian root, Lemon Balm, and Lavender.',
+    price: 8.00,
     category: 'tea',
     rating: 4.7,
-    reviews: 92,
-    image: 'https://picsum.photos/seed/tea2/400/400',
+    reviews: 89,
+    image: 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=800&q=80',
     isOrganic: true,
-    benefits: ['Deep sleep', 'Relaxation', 'Anxiety relief']
+    benefits: ['Deep sleep', 'Anxiety relief', 'Muscle relaxation'],
+    ingredients: 'Valerian Root, Lemon Balm, Lavender, Passionflower'
+  },
+  {
+    id: 'tea-3',
+    name: 'Japanese Ceremonial Matcha',
+    description: 'First harvest stone-ground green tea powder rich in antioxidants.',
+    price: 8.00,
+    category: 'tea',
+    rating: 5.0,
+    reviews: 210,
+    image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Energy boost', 'Focus', 'Metabolism support'],
+    ingredients: '100% Organic Green Tea Powder'
+  },
+  {
+    id: 'tea-4',
+    name: 'Digestive Ginger & Peppermint',
+    description: 'Spicy ginger meets cool peppermint for immediate digestive relief.',
+    price: 6.50,
+    category: 'tea',
+    rating: 4.6,
+    reviews: 56,
+    image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Nausea relief', 'Digestion', 'Immunity'],
+    ingredients: 'Ginger root, Peppermint leaves, Fennel seeds'
+  },
+  {
+    id: 'tea-6',
+    name: 'Hibiscus Rose Glow Tea',
+    description: 'Vitamin C rich blend that supports skin health from within.',
+    price: 6.95,
+    category: 'tea',
+    rating: 4.7,
+    reviews: 45,
+    image: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Skin health', 'Antioxidant', 'Hydration'],
+    ingredients: 'Hibiscus petals, Rosehips, Rose petals'
+  },
+
+  // --- SUPPLEMENTS (All images are pills/vitamins/bottles) ---
+  {
+    id: 'supp-1',
+    name: 'Ashwagandha KSM-66',
+    description: 'Clinical strength adaptogen for stress resilience and cortisol balance.',
+    price: 24.99,
+    category: 'supplements',
+    rating: 4.8,
+    reviews: 342,
+    // Image: Supplement bottle
+    image: 'https://images.unsplash.com/photo-1626422340277-c93d8b58a1f6?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Stress relief', 'Cortisol balance', 'Energy'],
+    ingredients: 'Organic Ashwagandha Root Extract'
+  },
+  {
+    id: 'supp-2',
+    name: 'Vitamin D3 + K2 Liquid',
+    description: 'High potency drops for bone health and immune system support.',
+    price: 18.50,
+    category: 'supplements',
+    rating: 4.9,
+    reviews: 156,
+    // Image: Dropper bottle/pills
+    image: 'https://images.unsplash.com/photo-1624454002302-36b824d7bd0a?auto=format&fit=crop&w=800&q=80',
+    isOrganic: false,
+    benefits: ['Bone health', 'Immunity', 'Mood support'],
+    ingredients: 'Vitamin D3 (Lichen), Vitamin K2 (MK-7)'
+  },
+  {
+    id: 'supp-3',
+    name: 'Magnesium Glycinate',
+    description: 'Highly bioavailable magnesium for sleep and muscle recovery.',
+    price: 22.00,
+    category: 'supplements',
+    rating: 4.7,
+    reviews: 88,
+    // Image: Pills in hand/bottle
+    image: 'https://images.unsplash.com/photo-1550572017-4fcd95616f73?auto=format&fit=crop&w=800&q=80',
+    isOrganic: false,
+    benefits: ['Sleep', 'Muscle recovery', 'Nervous system'],
+    ingredients: 'Magnesium Bisglycinate Chelate'
+  },
+  {
+    id: 'supp-4',
+    name: 'Lion\'s Mane Capsules',
+    description: 'Nootropic mushroom extract for memory, focus, and clarity.',
+    price: 29.99,
+    category: 'supplements',
+    rating: 4.8,
+    reviews: 112,
+    // Image: Capsules
+    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Brain function', 'Focus', 'Nerve support'],
+    ingredients: 'Organic Lion\'s Mane Fruit Body'
+  },
+  {
+    id: 'supp-5',
+    name: 'Wild Caught Fish Oil',
+    description: 'High EPA/DHA Omega-3s for heart and brain health.',
+    price: 26.50,
+    category: 'supplements',
+    rating: 4.6,
+    reviews: 201,
+    // Image: Softgel capsules
+    image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=800&q=80',
+    isOrganic: false,
+    benefits: ['Heart health', 'Brain health', 'Joint mobility'],
+    ingredients: 'Purified Deep Sea Fish Oil'
+  },
+  {
+    id: 'supp-6',
+    name: 'Probiotic Complete 50B',
+    description: 'Broad spectrum probiotic with 12 strains for gut health.',
+    price: 34.00,
+    category: 'supplements',
+    rating: 4.7,
+    reviews: 95,
+    // Image: Capsules in bottle
+    image: 'https://images.unsplash.com/photo-1616423668832-1b15c26b5282?auto=format&fit=crop&w=800&q=80',
+    isOrganic: false,
+    benefits: ['Digestion', 'Immunity', 'Bloating relief'],
+    ingredients: 'Probiotic Blend (50 Billion CFU)'
+  },
+
+  // --- COSMETICS ---
+  {
+    id: 'cos-1',
+    name: 'Rosehip Seed Oil',
+    description: 'Cold-pressed regenerative oil for scars, fine lines, and sun damage.',
+    price: 19.50,
+    category: 'cosmetics',
+    rating: 4.8,
+    reviews: 140,
+    image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Anti-aging', 'Scar fading', 'Hydration'],
+    ingredients: '100% Organic Rosa Canina Seed Oil'
+  },
+  {
+    id: 'cos-2',
+    name: 'Lavender Facial Mist',
+    description: 'Hydrating toner water distilled from fresh lavender flowers.',
+    price: 16.00,
+    category: 'cosmetics',
+    rating: 4.6,
+    reviews: 67,
+    image: 'https://images.unsplash.com/photo-1600054800747-be294a6a0d26?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Toning', 'Soothing', 'Refreshing'],
+    ingredients: 'Lavandula Angustifolia Distillate'
+  },
+  {
+    id: 'cos-3',
+    name: 'Shea Butter Body Cream',
+    description: 'Rich, whipped body butter for intense moisture.',
+    price: 24.00,
+    category: 'cosmetics',
+    rating: 4.9,
+    reviews: 82,
+    image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Deep moisture', 'Skin barrier', 'Softening'],
+    ingredients: 'Raw Shea Butter, Coconut Oil, Vitamin E'
+  },
+  {
+    id: 'cos-4',
+    name: 'Charcoal Detox Mask',
+    description: 'Activated charcoal mask to draw out impurities and minimize pores.',
+    price: 22.50,
+    category: 'cosmetics',
+    rating: 4.5,
+    reviews: 110,
+    image: 'https://images.unsplash.com/photo-1551173812-78dc59e07583?auto=format&fit=crop&w=800&q=80',
+    isOrganic: false,
+    benefits: ['Detoxifying', 'Pore cleansing', 'Oil control'],
+    ingredients: 'Activated Charcoal, Kaolin Clay'
+  },
+  {
+    id: 'cos-5',
+    name: 'Jojoba Balancing Oil',
+    description: 'Lightweight oil that mimics skin sebum, great for all skin types.',
+    price: 18.00,
+    category: 'cosmetics',
+    rating: 4.8,
+    reviews: 90,
+    image: 'https://images.unsplash.com/photo-1615946297545-21533997509e?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Balancing', 'Non-comedogenic', 'Moisturizing'],
+    ingredients: '100% Organic Simmondsia Chinensis Oil'
+  },
+  {
+    id: 'cos-6',
+    name: 'Coffee Eye Serum',
+    description: 'Caffeine-infused oil roller to reduce puffiness and dark circles.',
+    price: 21.00,
+    category: 'cosmetics',
+    rating: 4.7,
+    reviews: 125,
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Depuffing', 'Brightening', 'Firming'],
+    ingredients: 'Coffee Bean Oil, Almond Oil'
+  },
+
+  // --- SUPER FOODS ---
+  {
+    id: 'food-1',
+    name: 'Artisanal Raw A2 Milk',
+    description: 'Fresh, unprocessed A2 milk from pasture-raised heritage cows. Rich in enzymes.',
+    price: 12.00,
+    category: 'food',
+    rating: 4.9,
+    reviews: 312,
+    image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Digestive health', 'Probiotic', 'Calcium'],
+    ingredients: '100% Raw Whole A2 Milk'
+  },
+  {
+    id: 'food-2',
+    name: 'Wildflower Raw Honey',
+    description: 'Unfiltered, unpasteurized honey straight from the hive. Loaded with local pollen.',
+    price: 18.50,
+    category: 'food',
+    rating: 5.0,
+    reviews: 428,
+    image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Immunity', 'Allergy support', 'Natural energy'],
+    ingredients: 'Raw Wildflower Honey'
+  },
+  {
+    id: 'food-3',
+    name: 'Grass-Fed Beef Liver',
+    description: 'Nutrient-dense liver. Nature\'s multivitamin.',
+    price: 32.00,
+    category: 'food',
+    rating: 4.7,
+    reviews: 156,
+    image: 'https://images.unsplash.com/photo-1607335614551-3467cebe9f4d?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Iron rich', 'Vitamin B12', 'Energy'],
+    ingredients: '100% Grass-Fed Beef Liver'
+  },
+  {
+    id: 'food-4',
+    name: 'Organic Turmeric Root',
+    description: 'Fresh whole turmeric roots for tea, cooking, or juicing. Anti-inflammatory powerhouse.',
+    price: 9.50,
+    category: 'food',
+    rating: 4.8,
+    reviews: 98,
+    image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Anti-inflammatory', 'Joint pain', 'Detox'],
+    ingredients: 'Fresh Organic Turmeric Root'
+  },
+  {
+    id: 'food-5',
+    name: 'Blue Spirulina Powder',
+    description: 'Vibrant blue algae superfood powder. Tasteless and nutrient-packed.',
+    price: 29.99,
+    category: 'food',
+    rating: 4.6,
+    reviews: 205,
+    image: 'https://images.unsplash.com/photo-1632207191677-248644552b91?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Antioxidant', 'Protein', 'Detox'],
+    ingredients: '100% Organic Blue Spirulina'
+  },
+  {
+    id: 'food-6',
+    name: 'Bone Marrow Extract',
+    description: 'Rich, savory bone marrow concentrate. Essential for gut and bone health.',
+    price: 35.00,
+    category: 'food',
+    rating: 4.8,
+    reviews: 84,
+    image: 'https://images.unsplash.com/photo-1612871689353-cccf581d667b?auto=format&fit=crop&w=800&q=80',
+    isOrganic: true,
+    benefits: ['Gut repair', 'Collagen', 'Stem cells'],
+    ingredients: 'Grass-Fed Beef Bone Marrow'
   }
 ];
 

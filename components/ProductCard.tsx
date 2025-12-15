@@ -1,9 +1,9 @@
 import React from 'react';
 import { Product } from '../types';
-import { Star, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useToast } from '../context/ToastContext';
 import { Link } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -23,46 +23,45 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Link 
       to={`/product/${product.id}`} 
-      className="group block bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100 overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300"
+      className="group block bg-white rounded-[20px] p-4 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-500"
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-stone-100">
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-        />
-        {product.isOrganic && (
-          <span className="absolute top-3 left-3 bg-white/90 backdrop-blur text-stone-800 text-[10px] font-bold tracking-wider px-3 py-1 rounded-full shadow-sm">
-            ORGANIC
-          </span>
-        )}
-        
-        {/* Quick Add Button Overlay */}
-        <button 
-          onClick={handleAddToCart}
-          className="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur text-stone-900 rounded-full flex items-center justify-center shadow-lg hover:bg-green-800 hover:text-white transition-all active:scale-95"
-          aria-label="Quick Add to Cart"
-        >
-          <ShoppingBag size={18} />
-        </button>
-      </div>
-
-      <div className="p-4">
-        <div className="flex justify-between items-start mb-1 gap-2">
-          <p className="text-[10px] text-green-700 font-bold tracking-widest uppercase">{product.category}</p>
-          <div className="flex items-center gap-1">
-            <Star size={10} className="text-yellow-500 fill-yellow-500" />
-            <span className="text-xs font-medium text-stone-500">{product.rating}</span>
-          </div>
+      <div className="flex gap-5">
+        {/* Image Container */}
+        <div className="w-32 h-32 relative rounded-2xl overflow-hidden bg-[#F7F5F2] flex-shrink-0">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+          />
         </div>
-        
-        <h3 className="font-serif text-base font-bold text-stone-900 leading-tight mb-2 line-clamp-2 min-h-[2.5rem]">
-          {product.name}
-        </h3>
-        
-        <div className="flex items-baseline gap-1">
-          <span className="text-sm font-medium text-stone-400">$</span>
-          <span className="text-lg font-bold text-stone-900">{product.price.toFixed(2)}</span>
+
+        {/* Content */}
+        <div className="flex-1 flex flex-col justify-center py-1">
+          <div className="mb-2">
+            <span className="text-[10px] text-[#9DB8A0] font-bold tracking-widest uppercase mb-1 block">
+              {product.category.replace('_', ' ')}
+            </span>
+            <h3 className="font-serif text-lg text-[#1C1C1C] leading-[1.2] mb-1">
+              {product.name}
+            </h3>
+            <p className="text-xs text-[#1C1C1C]/50 font-light line-clamp-1">
+              {product.benefits[0]}
+            </p>
+          </div>
+          
+          <div className="mt-auto flex items-center justify-between">
+            <span className="text-base font-medium text-[#1C1C1C]">
+              ${product.price.toFixed(2)}
+            </span>
+            
+            <button 
+              onClick={handleAddToCart}
+              className="w-8 h-8 rounded-full bg-[#F7F5F2] text-[#0F2A1D] flex items-center justify-center hover:bg-[#0F2A1D] hover:text-[#F7F5F2] transition-all duration-300"
+              aria-label="Add to cart"
+            >
+              <Plus size={16} />
+            </button>
+          </div>
         </div>
       </div>
     </Link>

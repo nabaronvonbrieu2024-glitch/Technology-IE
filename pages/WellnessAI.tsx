@@ -8,7 +8,7 @@ const WellnessAI: React.FC = () => {
     {
       id: '1',
       role: 'model',
-      text: "Hello! I'm Herbolario AI. Ask me anything about natural remedies, herbs, or our products. How can I help you feel your best today?",
+      text: "Hello. I am Herbéra AI. I can guide you through our natural remedies or answer your wellness questions. How may I assist you today?",
       timestamp: new Date()
     }
   ]);
@@ -53,17 +53,17 @@ const WellnessAI: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] bg-gray-50">
+    <div className="flex flex-col h-[calc(100vh-140px)] bg-[#F7F5F2]">
       {/* Header */}
-      <div className="bg-white p-4 border-b border-gray-200 shadow-sm sticky top-0 z-10 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-green-400 to-blue-500 flex items-center justify-center text-white shadow-md">
-           <Sparkles size={20} />
+      <div className="bg-white/80 backdrop-blur-md p-4 border-b border-[#E5E0D8] shadow-sm sticky top-0 z-10 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-[#0F2A1D] flex items-center justify-center text-white shadow-md">
+           <Sparkles size={20} className="text-[#C6A75E]" />
         </div>
         <div>
-           <h1 className="font-bold text-gray-800 leading-tight">Wellness Assistant</h1>
-           <p className="text-xs text-gray-500 flex items-center gap-1">
+           <h1 className="font-serif font-bold text-[#0F2A1D] leading-tight">Herbéra AI</h1>
+           <p className="text-xs text-[#1C1C1C]/60 flex items-center gap-1">
              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-             Powered by Gemini AI
+             Wellness Assistant
            </p>
         </div>
       </div>
@@ -76,18 +76,18 @@ const WellnessAI: React.FC = () => {
             className={`flex items-start gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
           >
             <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1 ${
-              msg.role === 'model' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'
+              msg.role === 'model' ? 'bg-[#0F2A1D] text-[#F7F5F2]' : 'bg-[#E5E0D8] text-[#1C1C1C]'
             }`}>
               {msg.role === 'model' ? <Bot size={16} /> : <UserIcon size={16} />}
             </div>
             
-            <div className={`max-w-[80%] rounded-2xl p-3.5 text-sm shadow-sm ${
+            <div className={`max-w-[85%] rounded-2xl p-4 text-sm shadow-sm ${
               msg.role === 'user' 
-                ? 'bg-green-600 text-white rounded-tr-sm' 
-                : 'bg-white text-gray-700 border border-gray-100 rounded-tl-sm'
+                ? 'bg-[#0F2A1D] text-[#F7F5F2] rounded-tr-sm' 
+                : 'bg-white text-[#1C1C1C] border border-[#E5E0D8] rounded-tl-sm'
             }`}>
-              <p className="leading-relaxed whitespace-pre-wrap">{msg.text}</p>
-              <span className={`text-[10px] mt-1 block opacity-70 ${msg.role === 'user' ? 'text-green-100' : 'text-gray-400'}`}>
+              <p className="leading-relaxed whitespace-pre-wrap font-light">{msg.text}</p>
+              <span className={`text-[10px] mt-2 block opacity-60 ${msg.role === 'user' ? 'text-[#9DB8A0]' : 'text-[#1C1C1C]/40'}`}>
                 {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </span>
             </div>
@@ -95,36 +95,36 @@ const WellnessAI: React.FC = () => {
         ))}
         
         {isLoading && (
-          <div className="flex items-center gap-2 text-gray-400 text-sm ml-12 animate-pulse">
+          <div className="flex items-center gap-2 text-[#1C1C1C]/40 text-sm ml-12 animate-pulse font-serif italic">
             <Loader2 size={16} className="animate-spin" />
-            <span>Thinking...</span>
+            <span>Consulting botanical database...</span>
           </div>
         )}
         <div ref={messagesEndRef} />
       </div>
 
       {/* Input Area */}
-      <div className="p-3 bg-white border-t border-gray-200">
+      <div className="p-3 bg-white/80 backdrop-blur-md border-t border-[#E5E0D8]">
         <form onSubmit={handleSend} className="relative flex items-center gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about herbs, sleep, energy..."
-            className="flex-1 bg-gray-100 text-gray-800 rounded-full pl-5 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all"
+            className="flex-1 bg-[#F7F5F2] text-[#1C1C1C] rounded-xl pl-5 pr-12 py-3.5 text-sm focus:outline-none focus:ring-1 focus:ring-[#0F2A1D]/20 transition-all placeholder:text-[#1C1C1C]/30"
             disabled={isLoading}
           />
           <button 
             type="submit" 
             disabled={!input.trim() || isLoading}
-            className="absolute right-2 p-2 bg-green-600 text-white rounded-full hover:bg-green-700 disabled:opacity-50 disabled:bg-gray-300 transition-colors shadow-sm"
+            className="absolute right-2 p-2 bg-[#0F2A1D] text-[#F7F5F2] rounded-lg hover:bg-black disabled:opacity-50 disabled:bg-[#E5E0D8] transition-colors shadow-sm"
           >
             <Send size={18} className={isLoading ? "opacity-0" : "ml-0.5"} />
             {isLoading && <Loader2 size={18} className="absolute top-2 left-2 animate-spin" />}
           </button>
         </form>
-        <p className="text-[10px] text-center text-gray-400 mt-2">
-          Herbolario AI can make mistakes. Consider checking important info.
+        <p className="text-[10px] text-center text-[#1C1C1C]/40 mt-2">
+          Herbéra AI provides wellness suggestions, not medical advice.
         </p>
       </div>
     </div>
