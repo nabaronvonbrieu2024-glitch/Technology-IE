@@ -8,24 +8,27 @@ import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import WellnessAI from './pages/WellnessAI';
 import { CartProvider } from './context/CartContext';
+import { ToastProvider } from './context/ToastContext';
 
 const App: React.FC = () => {
   return (
-    <CartProvider>
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="catalog" element={<Catalog />} />
-            <Route path="product/:id" element={<ProductDetail />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="wellness-ai" element={<WellnessAI />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
-      </HashRouter>
-    </CartProvider>
+    <ToastProvider>
+      <CartProvider>
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="catalog" element={<Catalog />} />
+              <Route path="product/:id" element={<ProductDetail />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="wellness-ai" element={<WellnessAI />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </HashRouter>
+      </CartProvider>
+    </ToastProvider>
   );
 };
 
