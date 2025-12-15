@@ -16,7 +16,7 @@ const Layout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F5F2] flex flex-col max-w-md mx-auto shadow-2xl overflow-hidden border-x border-[#E5E0D8] relative font-sans text-[#1C1C1C]">
+    <div className="h-[100dvh] bg-[#F7F5F2] flex flex-col max-w-md mx-auto shadow-2xl overflow-hidden border-x border-[#E5E0D8] relative font-sans text-[#1C1C1C]">
       {/* Desktop/Tablet Warning */}
       <div className="hidden lg:block fixed left-4 top-4 w-64 p-4 bg-white/90 backdrop-blur border border-stone-200 rounded-xl text-sm text-stone-600 shadow-sm z-50 font-sans">
         <p className="font-serif font-bold text-[#0F2A1D] mb-1">Mobile View Emulation</p>
