@@ -1,11 +1,41 @@
 import { Category, Product, Order } from './types';
 
 export const CATEGORIES: Category[] = [
-  { id: 'tea', name: 'Herbal Teas', icon: 'Leaf', color: 'bg-green-100 text-green-700' },
-  { id: 'supplements', name: 'Supplements', icon: 'Pill', color: 'bg-blue-100 text-blue-700' },
-  { id: 'cosmetics', name: 'Natural Beauty', icon: 'Sparkles', color: 'bg-pink-100 text-pink-700' },
-  { id: 'food', name: 'Healthy Food', icon: 'Apple', color: 'bg-orange-100 text-orange-700' },
-  { id: 'essential_oils', name: 'Aromatherapy', icon: 'Droplets', color: 'bg-purple-100 text-purple-700' },
+  { 
+    id: 'tea', 
+    name: 'Herbal Teas', 
+    icon: 'Leaf', 
+    color: 'bg-green-100 text-green-700',
+    image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&q=80' 
+  },
+  { 
+    id: 'supplements', 
+    name: 'Supplements', 
+    icon: 'Pill', 
+    color: 'bg-blue-100 text-blue-700',
+    image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80'
+  },
+  { 
+    id: 'cosmetics', 
+    name: 'Natural Beauty', 
+    icon: 'Sparkles', 
+    color: 'bg-pink-100 text-pink-700',
+    image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=400&q=80'
+  },
+  { 
+    id: 'food', 
+    name: 'Healthy Food', 
+    icon: 'Apple', 
+    color: 'bg-orange-100 text-orange-700',
+    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80'
+  },
+  { 
+    id: 'essential_oils', 
+    name: 'Aromatherapy', 
+    icon: 'Droplets', 
+    color: 'bg-purple-100 text-purple-700',
+    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=400&q=80'
+  },
 ];
 
 export const PRODUCTS: Product[] = [

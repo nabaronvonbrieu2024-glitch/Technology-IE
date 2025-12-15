@@ -1,12 +1,9 @@
 import React from 'react';
-import { CATEGORIES, PRODUCTS } from '../constants';
+import { CATEGORIES } from '../constants';
 import { Link } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
 import { ArrowRight, Leaf, ShieldCheck, Truck } from 'lucide-react';
 
 const Home: React.FC = () => {
-  const featuredProducts = PRODUCTS.slice(0, 4);
-
   return (
     <div className="space-y-6 pb-6">
       {/* Hero Section */}
@@ -47,40 +44,40 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Categories */}
+      {/* Categories Grid */}
       <div className="px-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-bold text-gray-800">Categories</h3>
-          <Link to="/catalog" className="text-xs text-green-600 font-medium flex items-center">
-            View All <ArrowRight size={12} className="ml-1" />
-          </Link>
+          <h3 className="font-bold text-gray-800">Explore Categories</h3>
         </div>
-        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+        
+        <div className="grid grid-cols-2 gap-4">
           {CATEGORIES.map((cat) => (
             <Link 
               key={cat.id} 
               to={`/catalog?category=${cat.id}`}
-              className="flex-shrink-0 flex flex-col items-center gap-2 w-20"
+              className="relative rounded-2xl overflow-hidden aspect-square group shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${cat.color} shadow-sm`}>
-                {/* Normally we'd render dynamic icons here, but simple text/initials for now or the constant color blocks is fine. 
-                    Using the first letter as a placeholder since we can't dynamic import Lucide icons easily from string names in this strict environment without a map.
-                */}
-                <span className="text-xl font-bold opacity-80">{cat.name.charAt(0)}</span>
+              <img 
+                src={cat.image} 
+                alt={cat.name}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-4">
+                 <span className="text-white font-bold text-lg leading-tight">{cat.name}</span>
               </div>
-              <span className="text-xs text-center font-medium text-gray-700 leading-tight">{cat.name}</span>
             </Link>
           ))}
-        </div>
-      </div>
-
-      {/* Featured Products */}
-      <div className="px-4">
-        <h3 className="font-bold text-gray-800 mb-3">Popular Products</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {featuredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          
+          {/* View All Card to complete the grid */}
+          <Link 
+            to="/catalog"
+            className="flex flex-col items-center justify-center p-6 rounded-2xl bg-gray-100 text-gray-600 shadow-sm hover:shadow-md transition-shadow aspect-square"
+          >
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
+              <ArrowRight size={24} />
+            </div>
+            <span className="text-sm font-bold text-center">View All Products</span>
+          </Link>
         </div>
       </div>
     </div>
