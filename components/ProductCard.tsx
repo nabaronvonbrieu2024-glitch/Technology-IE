@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img 
             src={product.image} 
             alt={product.name} 
-            className="w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out"
           />
         </div>
 

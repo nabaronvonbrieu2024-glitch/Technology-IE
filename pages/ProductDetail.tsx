@@ -1,19 +1,27 @@
+
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { PRODUCTS } from '../constants';
+import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { ChevronLeft, Star, Minus, Plus, ShoppingBag, Leaf } from 'lucide-react';
+import { useI18n } from '../context/I18nContext';
+import { ChevronLeft, Star, Minus, Plus, ShoppingBag, Leaf, Edit3, Heart } from 'lucide-react';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { products, updateProductImage } = useProducts();
   const { addToCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
+  const { isAdmin } = useAuth();
   const { showToast } = useToast();
+  const { t } = useI18n();
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'details' | 'ingredients'>('details');
 
-  const product = PRODUCTS.find(p => p.id === id);
+  const product = products.find(p => p.id === id);
 
   if (!product) {
     return <div className="p-8 text-center text-stone-500 font-serif">Product not found</div>;
@@ -24,126 +32,103 @@ const ProductDetail: React.FC = () => {
     showToast(`Added ${quantity} ${product.name} to your bag`);
   };
 
+  const isSaved = isInWishlist(product.id);
+
   return (
-    <div className="bg-stone-50 min-h-screen relative pb-32 font-sans">
-      {/* Back Button */}
+    <div className="bg-[#F7F5F2] min-h-screen relative pb-48 font-sans">
       <button 
         onClick={() => navigate(-1)}
-        className="absolute top-6 left-6 z-20 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all active:scale-95 text-stone-800"
+        className="absolute top-6 left-6 z-20 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all active:scale-95 text-[#1C1C1C]"
       >
         <ChevronLeft size={24} />
       </button>
 
-      {/* Image Gallery */}
-      <div className="w-full aspect-square relative bg-stone-200 shadow-2xl">
+      <div className="w-full aspect-square relative bg-white shadow-sm">
         <img 
           src={product.image} 
           alt={product.name} 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-50"></div>
+        <button 
+          onClick={() => toggleWishlist(product)}
+          className={`absolute top-6 right-6 z-20 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all active:scale-95 ${
+            isSaved ? 'bg-red-50 text-red-500' : 'bg-white/80 backdrop-blur-md text-stone-400'
+          }`}
+        >
+          <Heart size={24} fill={isSaved ? "currentColor" : "none"} />
+        </button>
+
         {product.isOrganic && (
-           <div className="absolute bottom-8 left-6 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1.5 shadow-lg">
-             <Leaf size={14} fill="currentColor" /> Certified Organic
+           <div className="absolute bottom-8 left-6 bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-bold tracking-widest uppercase px-4 py-2 rounded-full flex items-center gap-1.5 shadow-lg">
+             <Leaf size={14} fill="currentColor" /> {t('product.organic')}
            </div>
         )}
       </div>
 
-      {/* Content */}
-      <div className="px-6 pt-8 pb-6 -mt-6 bg-stone-50 rounded-t-[2.5rem] relative z-10 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+      <div className="px-6 pt-8 pb-6 -mt-6 bg-[#F7F5F2] rounded-t-[2.5rem] relative z-10 shadow-[0_-10px_40px_rgba(0,0,0,0.03)]">
         <div className="flex flex-col gap-1 mb-4">
-          <p className="text-xs font-bold text-green-700 tracking-widest uppercase mb-1">{product.category}</p>
-          <h1 className="text-3xl font-serif font-bold text-stone-900 leading-tight">{product.name}</h1>
+          <p className="text-[10px] font-bold text-[#C6A75E] tracking-[0.2em] uppercase mb-1">{t(`cat.${product.category}`)}</p>
+          <h1 className="text-3xl font-serif font-bold text-[#0F2A1D] leading-tight">{product.name}</h1>
         </div>
 
-        <div className="flex items-center justify-between mb-8 pb-6 border-b border-stone-200">
+        <div className="flex items-center justify-between mb-8 pb-6 border-b border-[#E5E0D8]">
           <div className="flex items-center gap-2">
             <div className="flex text-yellow-500 gap-0.5">
                {[...Array(5)].map((_, i) => (
-                 <Star key={i} size={16} fill={i < Math.floor(product.rating) ? "currentColor" : "none"} strokeWidth={1.5} className={i >= Math.floor(product.rating) ? "text-stone-300" : ""} />
+                 <Star key={i} size={16} fill={i < Math.floor(product.rating) ? "currentColor" : "none"} />
                ))}
             </div>
-            <span className="text-sm text-stone-500 font-medium ml-1">{product.rating} <span className="text-stone-300">|</span> {product.reviews} reviews</span>
+            <span className="text-sm text-[#1C1C1C]/40 font-medium ml-1">{product.rating} <span className="opacity-30">|</span> {product.reviews} reviews</span>
           </div>
           <div className="flex items-baseline gap-1">
-             <span className="text-lg font-serif text-stone-500">$</span>
-             <span className="text-3xl font-serif font-bold text-stone-900">{product.price.toFixed(2)}</span>
+             <span className="text-lg font-serif text-[#1C1C1C]/40">$</span>
+             <span className="text-3xl font-serif font-bold text-[#0F2A1D]">{product.price.toFixed(2)}</span>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-8 border-b border-stone-200 mb-6">
+        <div className="flex gap-8 border-b border-[#E5E0D8] mb-6">
           <button 
-            className={`pb-3 text-sm font-bold tracking-wide transition-all relative ${activeTab === 'details' ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`}
+            className={`pb-3 text-xs font-bold uppercase tracking-[0.15em] transition-all relative ${activeTab === 'details' ? 'text-[#0F2A1D]' : 'text-[#1C1C1C]/30'}`}
             onClick={() => setActiveTab('details')}
           >
-            Description
-            {activeTab === 'details' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-stone-900"></div>}
+            {t('product.details')}
+            {activeTab === 'details' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#0F2A1D]"></div>}
           </button>
           <button 
-            className={`pb-3 text-sm font-bold tracking-wide transition-all relative ${activeTab === 'ingredients' ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`}
+            className={`pb-3 text-xs font-bold uppercase tracking-[0.15em] transition-all relative ${activeTab === 'ingredients' ? 'text-[#0F2A1D]' : 'text-[#1C1C1C]/30'}`}
             onClick={() => setActiveTab('ingredients')}
           >
-            Ingredients
-            {activeTab === 'ingredients' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-stone-900"></div>}
+            {t('product.botanicals')}
+            {activeTab === 'ingredients' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#0F2A1D]"></div>}
           </button>
         </div>
 
-        {/* Tab Content */}
         <div className="min-h-[120px] mb-8">
-          {activeTab === 'details' ? (
-            <p className="text-stone-600 leading-relaxed font-light text-base">
-              {product.description}
-              <br /><br />
-              <span className="text-stone-800 font-medium">Why we love it:</span> Sourced from sustainable farms, ensuring you receive nature's most potent benefits in their purest form.
-            </p>
-          ) : (
-            <div className="space-y-6">
-              <div className="bg-white p-4 rounded-2xl border border-stone-100">
-                <h4 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Active Ingredients</h4>
-                <p className="text-stone-800 font-medium">{product.ingredients || 'Premium natural herbal extracts.'}</p>
-              </div>
-              <div>
-                <h4 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-3">Key Benefits</h4>
-                <ul className="space-y-2">
-                  {product.benefits.map((benefit, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-stone-700">
-                      <div className="w-6 h-6 rounded-full bg-green-50 text-green-700 flex items-center justify-center mr-3">
-                         <Leaf size={12} />
-                      </div>
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
+          <p className="text-[#1C1C1C]/70 leading-relaxed font-light text-base">
+            {activeTab === 'details' ? product.description : product.ingredients}
+          </p>
         </div>
       </div>
 
-      {/* Sticky Action Bar - Glassmorphism */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-4 bg-white/80 backdrop-blur-xl border-t border-stone-200 flex items-center gap-4 z-20 pb-8">
-        <div className="flex items-center bg-stone-100 rounded-full h-14 px-2 border border-stone-200">
-          <button 
-            onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="w-10 h-full flex items-center justify-center text-stone-500 hover:text-stone-900 transition-colors"
-          >
-            <Minus size={18} />
-          </button>
-          <span className="w-8 text-center font-bold text-stone-900 text-lg">{quantity}</span>
-          <button 
-            onClick={() => setQuantity(quantity + 1)}
-            className="w-10 h-full flex items-center justify-center text-stone-500 hover:text-stone-900 transition-colors"
-          >
-            <Plus size={18} />
-          </button>
+      <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto p-4 bg-white/90 backdrop-blur-xl border-t border-[#E5E0D8] flex items-center gap-3 z-30 shadow-lg">
+        <button 
+          onClick={() => toggleWishlist(product)}
+          className={`w-14 h-14 rounded-full flex items-center justify-center border ${isSaved ? 'bg-red-50 text-red-500' : 'bg-[#F7F5F2]'}`}
+        >
+          <Heart size={24} fill={isSaved ? "currentColor" : "none"} />
+        </button>
+
+        <div className="flex-1 flex items-center bg-[#F7F5F2] rounded-full h-14 px-2 border border-[#E5E0D8]">
+          <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-10 text-[#1C1C1C]/40"><Minus size={18} /></button>
+          <span className="w-8 text-center font-bold text-[#0F2A1D] text-lg">{quantity}</span>
+          <button onClick={() => setQuantity(quantity + 1)} className="w-10 text-[#1C1C1C]/40"><Plus size={18} /></button>
         </div>
+        
         <button 
           onClick={handleAddToCart}
-          className="flex-1 bg-stone-900 text-white h-14 rounded-full font-bold text-sm tracking-wide flex items-center justify-center gap-3 shadow-xl shadow-stone-900/20 hover:bg-green-900 transition-all active:scale-[0.98]"
+          className="flex-[2] bg-[#0F2A1D] text-white h-14 rounded-full font-bold text-[10px] tracking-[0.2em] uppercase"
         >
-          <ShoppingBag size={20} />
-          Add to Bag <span className="opacity-40">|</span> ${(product.price * quantity).toFixed(2)}
+          {t('product.add')} <span className="opacity-30">|</span> ${(product.price * quantity).toFixed(2)}
         </button>
       </div>
     </div>

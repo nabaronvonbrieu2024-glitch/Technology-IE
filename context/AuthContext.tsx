@@ -7,6 +7,8 @@ import { User as SupabaseUser } from '@supabase/supabase-js';
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
+  setIsAdmin: (val: boolean) => void;
   login: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
@@ -17,10 +19,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(() => localStorage.getItem('herbera_admin') === 'true');
   const [isLoading, setIsLoading] = useState(true);
   const { showToast } = useToast();
 
-  // Helper to map Supabase user to our App's User type
+  useEffect(() => {
+    localStorage.setItem('herbera_admin', isAdmin.toString());
+  }, [isAdmin]);
+
   const mapUser = (sbUser: SupabaseUser): User => {
     const name = sbUser.user_metadata?.full_name || sbUser.email?.split('@')[0] || 'User';
     return {
@@ -32,13 +38,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   useEffect(() => {
-    // If Supabase is not configured, stop loading and allow Mock mode
     if (!supabase) {
       setIsLoading(false);
       return;
     }
 
-    // Check active sessions and sets the user
     const checkSession = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
@@ -54,7 +58,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     checkSession();
 
-    // Listen for changes on auth state (login, sign out, etc.)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session?.user) {
         setUser(mapUser(session.user));
@@ -70,92 +73,61 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
-
-    // Fallback: Demo Mode if Supabase is missing
     if (!supabase) {
       await new Promise(resolve => setTimeout(resolve, 1000));
       const mockUser: User = {
-        id: 'demo-user-' + Date.now(),
+        id: 'demo-user',
         name: 'Demo User',
         email: email,
         avatar: `https://ui-avatars.com/api/?name=Demo+User&background=0D9488&color=fff`
       };
       setUser(mockUser);
       setIsLoading(false);
-      showToast('Logged in (Demo Mode - Setup Supabase to fix)');
+      showToast('Logged in');
       return;
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setIsLoading(false);
       showToast(error.message, 'info');
       throw error;
     }
-    
     showToast('Welcome back!');
   };
 
   const signUp = async (email: string, password: string, name: string) => {
     setIsLoading(true);
-
-    // Fallback: Demo Mode
     if (!supabase) {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      const mockUser: User = {
-        id: 'demo-user-' + Date.now(),
-        name: name,
-        email: email,
-        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0D9488&color=fff`
-      };
-      setUser(mockUser);
+      setUser({ id: 'demo-user', name, email, avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0D9488&color=fff` });
       setIsLoading(false);
-      showToast('Account created (Demo Mode)');
+      showToast('Account created');
       return;
     }
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: name,
-        },
-      },
-    });
-
+    const { error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } });
     if (error) {
       setIsLoading(false);
       showToast(error.message, 'info');
       throw error;
     }
-
-    showToast('Account created! Please check your email.');
+    showToast('Account created!');
     setIsLoading(false);
   };
 
   const logout = async () => {
     if (!supabase) {
       setUser(null);
-      showToast('Logged out (Demo Mode)', 'info');
+      showToast('Logged out', 'info');
       return;
     }
-
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      showToast(error.message, 'info');
-    } else {
-      setUser(null);
-      showToast('Successfully logged out', 'info');
-    }
+    await supabase.auth.signOut();
+    setUser(null);
+    showToast('Successfully logged out', 'info');
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, signUp, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isAdmin, setIsAdmin, login, signUp, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

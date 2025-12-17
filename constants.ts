@@ -32,7 +32,7 @@ export const CATEGORIES: Category[] = [
 ];
 
 export const PRODUCTS: Product[] = [
-  // --- TEAS (Prices between $6-8) ---
+  // --- TEAS ---
   {
     id: 'tea-1',
     name: 'Organic Chamomile Whole Flower',
@@ -73,19 +73,6 @@ export const PRODUCTS: Product[] = [
     ingredients: '100% Organic Green Tea Powder'
   },
   {
-    id: 'tea-4',
-    name: 'Digestive Ginger & Peppermint',
-    description: 'Spicy ginger meets cool peppermint for immediate digestive relief.',
-    price: 6.50,
-    category: 'tea',
-    rating: 4.6,
-    reviews: 56,
-    image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80',
-    isOrganic: true,
-    benefits: ['Nausea relief', 'Digestion', 'Immunity'],
-    ingredients: 'Ginger root, Peppermint leaves, Fennel seeds'
-  },
-  {
     id: 'tea-6',
     name: 'Hibiscus Rose Glow Tea',
     description: 'Vitamin C rich blend that supports skin health from within.',
@@ -99,21 +86,7 @@ export const PRODUCTS: Product[] = [
     ingredients: 'Hibiscus petals, Rosehips, Rose petals'
   },
 
-  // --- SUPPLEMENTS (All images are pills/vitamins/bottles) ---
-  {
-    id: 'supp-1',
-    name: 'Ashwagandha KSM-66',
-    description: 'Clinical strength adaptogen for stress resilience and cortisol balance.',
-    price: 24.99,
-    category: 'supplements',
-    rating: 4.8,
-    reviews: 342,
-    // Image: Supplement bottle
-    image: 'https://images.unsplash.com/photo-1626422340277-c93d8b58a1f6?auto=format&fit=crop&w=800&q=80',
-    isOrganic: true,
-    benefits: ['Stress relief', 'Cortisol balance', 'Energy'],
-    ingredients: 'Organic Ashwagandha Root Extract'
-  },
+  // --- SUPPLEMENTS ---
   {
     id: 'supp-2',
     name: 'Vitamin D3 + K2 Liquid',
@@ -122,7 +95,6 @@ export const PRODUCTS: Product[] = [
     category: 'supplements',
     rating: 4.9,
     reviews: 156,
-    // Image: Dropper bottle/pills
     image: 'https://images.unsplash.com/photo-1624454002302-36b824d7bd0a?auto=format&fit=crop&w=800&q=80',
     isOrganic: false,
     benefits: ['Bone health', 'Immunity', 'Mood support'],
@@ -136,8 +108,7 @@ export const PRODUCTS: Product[] = [
     category: 'supplements',
     rating: 4.7,
     reviews: 88,
-    // Image: Pills in hand/bottle
-    image: 'https://images.unsplash.com/photo-1550572017-4fcd95616f73?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=800&q=80',
     isOrganic: false,
     benefits: ['Sleep', 'Muscle recovery', 'Nervous system'],
     ingredients: 'Magnesium Bisglycinate Chelate'
@@ -150,8 +121,7 @@ export const PRODUCTS: Product[] = [
     category: 'supplements',
     rating: 4.8,
     reviews: 112,
-    // Image: Capsules
-    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=800&q=80',
     isOrganic: true,
     benefits: ['Brain function', 'Focus', 'Nerve support'],
     ingredients: 'Organic Lion\'s Mane Fruit Body'
@@ -164,25 +134,10 @@ export const PRODUCTS: Product[] = [
     category: 'supplements',
     rating: 4.6,
     reviews: 201,
-    // Image: Softgel capsules
     image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=800&q=80',
     isOrganic: false,
     benefits: ['Heart health', 'Brain health', 'Joint mobility'],
     ingredients: 'Purified Deep Sea Fish Oil'
-  },
-  {
-    id: 'supp-6',
-    name: 'Probiotic Complete 50B',
-    description: 'Broad spectrum probiotic with 12 strains for gut health.',
-    price: 34.00,
-    category: 'supplements',
-    rating: 4.7,
-    reviews: 95,
-    // Image: Capsules in bottle
-    image: 'https://images.unsplash.com/photo-1616423668832-1b15c26b5282?auto=format&fit=crop&w=800&q=80',
-    isOrganic: false,
-    benefits: ['Digestion', 'Immunity', 'Bloating relief'],
-    ingredients: 'Probiotic Blend (50 Billion CFU)'
   },
 
   // --- COSMETICS ---
@@ -213,19 +168,6 @@ export const PRODUCTS: Product[] = [
     ingredients: 'Lavandula Angustifolia Distillate'
   },
   {
-    id: 'cos-3',
-    name: 'Shea Butter Body Cream',
-    description: 'Rich, whipped body butter for intense moisture.',
-    price: 24.00,
-    category: 'cosmetics',
-    rating: 4.9,
-    reviews: 82,
-    image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?auto=format&fit=crop&w=800&q=80',
-    isOrganic: true,
-    benefits: ['Deep moisture', 'Skin barrier', 'Softening'],
-    ingredients: 'Raw Shea Butter, Coconut Oil, Vitamin E'
-  },
-  {
     id: 'cos-4',
     name: 'Charcoal Detox Mask',
     description: 'Activated charcoal mask to draw out impurities and minimize pores.',
@@ -233,23 +175,10 @@ export const PRODUCTS: Product[] = [
     category: 'cosmetics',
     rating: 4.5,
     reviews: 110,
-    image: 'https://images.unsplash.com/photo-1551173812-78dc59e07583?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=80',
     isOrganic: false,
     benefits: ['Detoxifying', 'Pore cleansing', 'Oil control'],
     ingredients: 'Activated Charcoal, Kaolin Clay'
-  },
-  {
-    id: 'cos-5',
-    name: 'Jojoba Balancing Oil',
-    description: 'Lightweight oil that mimics skin sebum, great for all skin types.',
-    price: 18.00,
-    category: 'cosmetics',
-    rating: 4.8,
-    reviews: 90,
-    image: 'https://images.unsplash.com/photo-1615946297545-21533997509e?auto=format&fit=crop&w=800&q=80',
-    isOrganic: true,
-    benefits: ['Balancing', 'Non-comedogenic', 'Moisturizing'],
-    ingredients: '100% Organic Simmondsia Chinensis Oil'
   },
   {
     id: 'cos-6',
@@ -317,19 +246,6 @@ export const PRODUCTS: Product[] = [
     isOrganic: true,
     benefits: ['Anti-inflammatory', 'Joint pain', 'Detox'],
     ingredients: 'Fresh Organic Turmeric Root'
-  },
-  {
-    id: 'food-5',
-    name: 'Blue Spirulina Powder',
-    description: 'Vibrant blue algae superfood powder. Tasteless and nutrient-packed.',
-    price: 29.99,
-    category: 'food',
-    rating: 4.6,
-    reviews: 205,
-    image: 'https://images.unsplash.com/photo-1632207191677-248644552b91?auto=format&fit=crop&w=800&q=80',
-    isOrganic: true,
-    benefits: ['Antioxidant', 'Protein', 'Detox'],
-    ingredients: '100% Organic Blue Spirulina'
   },
   {
     id: 'food-6',

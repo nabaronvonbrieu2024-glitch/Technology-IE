@@ -1,18 +1,24 @@
+
 import React from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
-import { Home, ShoppingBag, User, Search, Sparkles, ShoppingCart } from 'lucide-react';
+import { Home, ShoppingBag, User, Search, Sparkles, ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+import { useI18n } from '../context/I18nContext';
 
 const Layout: React.FC = () => {
   const { pathname } = useLocation();
   const { itemCount } = useCart();
+  const { wishlistItems } = useWishlist();
+  const { t } = useI18n();
 
   const navItems = [
-    { path: '/', icon: Home, label: 'Home' },
-    { path: '/catalog', icon: Search, label: 'Search' },
-    { path: '/wellness-ai', icon: Sparkles, label: 'Assistant' },
-    { path: '/cart', icon: ShoppingBag, label: 'Cart', badge: itemCount },
-    { path: '/profile', icon: User, label: 'Account' },
+    { path: '/', icon: Home, label: t('nav.home') },
+    { path: '/catalog', icon: Search, label: t('nav.search') },
+    { path: '/wellness-ai', icon: Sparkles, label: t('nav.assistant') },
+    { path: '/wishlist', icon: Heart, label: t('nav.wishlist'), badge: wishlistItems.length },
+    { path: '/cart', icon: ShoppingBag, label: t('nav.cart'), badge: itemCount },
+    { path: '/profile', icon: User, label: t('nav.account') },
   ];
 
   return (
@@ -35,14 +41,24 @@ const Layout: React.FC = () => {
            </div>
            <span className="font-serif font-bold text-xl text-[#0F2A1D] tracking-tight">Herbéra</span>
         </Link>
-        <Link to="/cart" className="relative p-2 text-[#1C1C1C] hover:text-[#0F2A1D] transition-colors">
-          <ShoppingCart size={22} strokeWidth={1.2} />
-          {itemCount > 0 && (
-            <span className="absolute top-1 right-0 bg-[#0F2A1D] text-[#F7F5F2] text-[10px] font-medium w-4 h-4 flex items-center justify-center rounded-full">
-              {itemCount}
-            </span>
-          )}
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link to="/wishlist" className="relative p-2 text-[#1C1C1C] hover:text-[#0F2A1D] transition-colors">
+            <Heart size={22} strokeWidth={1.2} />
+            {wishlistItems.length > 0 && (
+              <span className="absolute top-1 right-0 bg-[#C6A75E] text-white text-[9px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">
+                {wishlistItems.length}
+              </span>
+            )}
+          </Link>
+          <Link to="/cart" className="relative p-2 text-[#1C1C1C] hover:text-[#0F2A1D] transition-colors">
+            <ShoppingCart size={22} strokeWidth={1.2} />
+            {itemCount > 0 && (
+              <span className="absolute top-1 right-0 bg-[#0F2A1D] text-[#F7F5F2] text-[10px] font-medium w-4 h-4 flex items-center justify-center rounded-full">
+                {itemCount}
+              </span>
+            )}
+          </Link>
+        </div>
       </header>
 
       {/* Main Content Area */}
@@ -65,12 +81,12 @@ const Layout: React.FC = () => {
               >
                 <div className="relative p-1">
                   <Icon 
-                    size={24} 
+                    size={22} 
                     strokeWidth={1.5} 
-                    className={`transition-colors duration-300 ${isActive ? 'text-[#0F2A1D]' : 'text-[#1C1C1C]/40'}`} 
+                    className={`transition-colors duration-300 ${isActive ? 'text-[#0F2A1D]' : 'text-[#1C1C1C]/30'}`} 
                   />
-                  {item.badge ? (
-                    <span className="absolute -top-1 -right-1 bg-[#C6A75E] text-white text-[9px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">
+                  {item.badge && item.badge > 0 ? (
+                    <span className="absolute -top-1 -right-1 bg-[#C6A75E] text-white text-[8px] font-bold w-3 h-3 flex items-center justify-center rounded-full">
                       {item.badge}
                     </span>
                   ) : null}

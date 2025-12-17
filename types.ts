@@ -1,3 +1,4 @@
+
 export interface Product {
   id: string;
   name: string;
@@ -46,4 +47,21 @@ export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
   timestamp: Date;
+}
+
+export interface Address {
+  id: string;
+  label: string;
+  street: string;
+  city: string;
+  postalCode: string;
+  isDefault: boolean;
+}
+
+export interface PaymentMethod {
+  id: string;
+  cardholderName: string;
+  lastFour: string;
+  expiry: string;
+  brand: 'visa' | 'mastercard' | 'amex';
 }
